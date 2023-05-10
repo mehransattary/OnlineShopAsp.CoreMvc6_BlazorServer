@@ -1,0 +1,99 @@
+﻿@model List<Brand>
+@{
+    ViewData["Title"] = "برند ها";
+    int counter = 1;
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+
+            <a asp-action="Create" class="btn btn-success btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                جدید
+            </a>
+            <h4 class="header-title m-t-0 m-b-30">
+                @ViewData["Title"]
+            </h4>
+
+
+
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                نام 
+                            </th>
+                            <th>
+                               تصویر
+                            </th>
+                            <th>
+                                فعال
+                            </th>
+                            <th>
+                                ترتیب
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@counter</th>
+                                <td>
+                                    @item.BrandName
+                                </td>
+                                <td>
+                                    <img src=" @item.BrandImage" width="100">
+                                </td>
+                              <td>
+                                   @if(item.BrandIsEnableForMainPage)
+                                    {
+                                        <span class="label label-success">
+                                            فعال
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-danger">
+                                            غیر فعال
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @item.BrandOrder
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-bordred waves-effect w-md waves-light m-b-5 ">
+                                        ویرایش
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-bordred waves-effect w-md waves-light m-b-5 ">
+                                        حذف
+                                    </a>
+
+
+                                </td>
+                            </tr>
+
+                            counter++;
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- end col -->
+
+</div>
+<!-- end row -->
+                   

@@ -1,0 +1,139 @@
+﻿@model BlogGroup
+@{
+    ViewData["Title"] = "افزودن گروه بلاگ جدید";
+}
+
+<h4 class="header-title m-t-0 m-b-30">
+    @ViewData["Title"]
+</h4>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="row">
+                <a asp-action="Index" class="btn btn-primary btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    بازگشت
+                </a>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form class="form-horizontal" role="form" asp-action="Create" method="post" enctype="multipart/form-data">
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> دسته   </label>
+                            <div class="col-md-10">
+                                <select asp-for="BlogCategoryId" asp-items="ViewBag.BlogCategoryId" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">نام گروه بلاگ</label>
+                            <div class="col-md-10">
+                                <input asp-for="BlogGroupName" class="form-control" placeholder="نام گروه بلاگ">
+                                <span asp-validation-for="BlogGroupName" style="color:red"></span>
+
+                            </div>
+                        </div>
+              
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">ترتیب </label>
+                            <div class="col-md-10">
+                                <input asp-for="BlogGroupOrder" class="form-control" placeholder="ترتیب " min="1" value="1">
+                                <span asp-validation-for="BlogGroupOrder" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">توضیح مختصر </label>
+                            <div class="col-md-10">
+                                <textarea asp-for="BlogGroupShortDescription" class="form-control">
+
+                              </textarea>
+                                <span asp-validation-for="BlogGroupShortDescription" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">توضیح  کامل </label>
+                            <div class="col-md-10">
+                                <textarea asp-for="BlogGroupDescription" class="form-control">
+
+                              </textarea>
+                                <span asp-validation-for="BlogGroupDescription" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary">
+                                <input asp-for="BlogGroupIsEnableForMainPage" type="checkbox" checked="">
+                                <label for="checkbox2">
+                                    فعال در صفحه اصلی
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> تصویر  </label>
+                            <div class="col-md-10">
+                                <input name="BlogGroupImageFile" class="form-control" type="file">
+                                <span asp-validation-for="BlogGroupImage" style="color:red"></span>
+
+                            </div>
+
+                        </div>
+
+
+
+
+                        <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">ذخیره </button>
+
+                    </form>
+                </div><!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <!--form wysiwig js-->
+    <script src="/admin/assets/plugins/tinymce/tinymce.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#BlogGroupDescription").length > 0) {
+                tinymce.init({
+                    selector: "textarea#BlogGroupDescription",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "rtl insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+        });
+    </script>
+}
+
+

@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.14">
+
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+    <ProjectReference Include="..\Repository\Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\admin\assets\plugins\jstree\themes\default\" />
+    <Folder Include="wwwroot\images\Advertise\" />
+    <Folder Include="wwwroot\images\category\" />
+    <Folder Include="wwwroot\images\Group\" />
+    <Folder Include="wwwroot\images\Brand\" />
+    <Folder Include="wwwroot\images\BlogCategory\" />
+    <Folder Include="wwwroot\images\BlogGroup\" />
+    <Folder Include="wwwroot\images\Blog\" />
+    <Folder Include="wwwroot\images\setting\" />
+    <Folder Include="wwwroot\images\Service\" />
+    <Folder Include="wwwroot\images\Product\" />
+    <Folder Include="wwwroot\images\slider\" />
+  </ItemGroup>
+
+</Project>

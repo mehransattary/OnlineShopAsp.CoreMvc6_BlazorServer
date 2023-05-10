@@ -1,0 +1,68 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "ویرایش اسلایدر " + Model.SliderName;
+}
+
+<h4 class="header-title m-t-0 m-b-30">
+    @ViewData["Title"]
+</h4>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="row">
+                <a asp-action="Index" class="btn btn-primary btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    بازگشت
+                </a>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form class="form-horizontal" role="form" asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input asp-for="Id" hidden/>
+                        <input asp-for="CreateDate" hidden />
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">نام اسلایدر</label>
+                            <div class="col-md-10">
+                                <input asp-for="SliderName" class="form-control" placeholder="نام اسلایدر">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> لینک </label>
+                            <div class="col-md-10">
+                                <input asp-for="SliderUrl" class="form-control" placeholder="لینک">
+                                <span asp-validation-for="SliderUrl" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> توضیح کوتاه   </label>
+                            <div class="col-md-10">
+                                <input asp-for="SliderShortDescription" class="form-control" placeholder="توضیح کوتاه ">
+                                <span asp-validation-for="SliderShortDescription" style="color:red"></span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> تصویر  </label>
+                            <div class="col-md-10">
+                                <img src="@Model.SliderImage" width="150"/>
+                                <input asp-for="SliderImage" hidden />
+                                <input name="SliderImageFile" class="form-control" type="file">
+                                <span asp-validation-for="SliderImage" style="color:red"></span>
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">ذخیره </button>
+
+                    </form>
+                </div><!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+

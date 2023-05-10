@@ -1,0 +1,238 @@
+﻿@model IPagedList<Product>
+@{
+    ViewData["Title"] = "محصولات";
+    
+}    
+<!-- Hero Start -->
+    <section class="bg-half bg-light d-table w-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="page-next-level">
+                    @if (ViewBag.CategoryName!=null)
+                    {
+                        <h4 class="title"> @ViewBag.CategoryName  </h4>
+
+                    }
+                    else if (ViewBag.GroupName != null)
+                    {
+                        <h4 class="title"> @ViewBag.GroupName </h4>
+
+                    }
+                    else if (ViewBag.BrandName != null)
+                    {
+                        <h4 class="title"> @ViewBag.BrandName </h4>
+
+                    }
+                    else
+                    {
+                        <h4 class="title"> تمام محصولات </h4>
+
+                    }
+                    <div class="page-next">
+                            <nav aria-label="breadcrumb" class="d-inline-block">
+                                <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                    <li class="breadcrumb-item"><a href="/">خانه </a></li>
+                                @if (ViewBag.CategoryName != null)
+                                {
+                                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.CategoryName </li>
+
+
+                                }
+                                else if (ViewBag.GroupName != null)
+                                {
+                                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.GroupName </li>
+
+
+                                }
+                                else if (ViewBag.BrandName != null)
+                                {
+                                    <li class="breadcrumb-item active" aria-current="page">@ViewBag.BrandName </li>
+
+
+                                }
+                                else
+                                {
+                                    <li class="breadcrumb-item active" aria-current="page">محصولات </li>
+
+                                }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div> <!--end container-->
+    </section><!--end section-->
+    <div class="position-relative">
+        <div class="shape overflow-hidden text-white">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+            </svg>
+        </div>
+    </div>
+    <!-- Hero End -->
+    <!-- Start Products -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="card border-0 sidebar sticky-bar">
+                        <div class="card-body p-0">
+                 
+                            <!-- SEARCH -->
+                            <!-- Categories -->
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">دسته بندیها </h5>
+                                <ul class="list-unstyled mt-4 mb-0 blog-categories">
+                                @if (ViewData["Categories"]!=null)
+                                {
+                                    @foreach (var category in ViewData["Categories"] as List<Category>)
+                                    {
+                                        <li><a href="/ShowProductsCategory/@category.CategoryEnglishName">@category.CategoryName </a></li>
+                                    }
+                                }
+                              
+                                </ul>
+                            </div>
+                            <!-- Categories -->
+                      
+                            <!-- COlor -->
+                            <!-- Top Products -->
+                            <div class="widget mt-4 pt-2">
+                                <h5 class="widget-title">محصولات اخیر </h5>
+                                <ul class="list-unstyled mt-4 mb-0">
+                               
+                                @if (ViewData["lastProducts"] != null)
+                                {
+                                    foreach (var product in ViewData["lastProducts"] as List<Product>)
+                                    {
+                                        <li class="d-flex align-items-center">
+                                            <a href="/Product/@product.ProductEnglishName">
+                                                <img src="@product.ProductImageSmall" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="@product.ProductName">
+                                            </a>
+                                            <div class="flex-1 content ms-3">
+                                                <a href="/Product/@product.ProductEnglishName" class="text-dark h6">@product.ProductName </a>
+                                               
+                                                <h6 class="text-muted small fst-italic mb-0 mt-1">
+                                                    @if (product.ProductPriceOffer != 0)
+                                                    {
+                                                        @product.ProductPriceOffer.ToString("#,0 تومان")
+                                                        <del class="text-danger ms-2">
+                                                            @product.ProductPrice.ToString("#,0 تومان")
+                                                        </del>
+                                                    }
+                                                    else
+                                                    {
+                                                        @product.ProductPrice.ToString("#,0 تومان")
+
+                                                    }
+                                                    
+                                                </h6>
+                                            </div>
+                                        </li>
+                                    } 
+                                }
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--end col-->
+
+                <div class="col-lg-9 col-md-8 col-12 mt-5 pt-2 mt-sm-0 pt-sm-0">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8 col-md-7">
+                     
+                        </div><!--end col-->
+
+                        <div class="col-lg-4 col-md-5 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                            <div class="d-flex justify-content-md-between align-items-center">
+                            <form asp-action="ShowProducts" style="display:flex">
+                                <div class="form custom-form">
+                                    <div class="mb-0">
+
+                                        <select name="statusSearch" asp-items="Html.GetEnumSelectList<StatusSearchProductEnum>()"
+                                                class="form-select form-control">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="mx-2">
+                                
+                                    <button type="submit" class="btn btn-link text-decoration-none  p-0 pe-2" >
+                                        <i class="uil uil-search h5 text-muted"></i>
+                                    </button>
+                                </div>
+                                </form>                
+
+                            
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="row">
+                    <!-- PAGINATION START -->
+                    <div class="col-12 mt-4 pt-2">
+
+                        @Html.PagedListPager(Model , page =>Url.Action("ShowProducts","Product", new { currentpage=page}) )
+
+                    </div><!--end col-->
+
+                   @foreach (var product in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
+                            <div class="card shop-list border-0 position-relative">
+                           
+                                <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                    <a href="/Product/@product.ProductEnglishName"><img src="@product.ProductImageSmall" class="img-fluid" alt="@product.ProductName"></a>
+                                    <a href="/Product/@product.ProductEnglishName" class="overlay-work">
+                                        <img src="@product.ProductImageSmall" class="img-fluid" alt="@product.ProductName">
+                                    </a>
+                               
+                                </div>
+                                <div class="card-body content pt-4 p-2">
+                                    <a href="/Product/@product.ProductEnglishName" class="text-dark product-name h6">@product.ProductName  </a>
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <h6 class="text-muted small fst-italic mb-0 mt-1">
+                                            @if (product.ProductPriceOffer!=0)
+                                            {
+                                                @product.ProductPriceOffer.ToString("#,0 تومان")
+                                                <del class="text-danger ms-2">
+                                                    @product.ProductPrice.ToString("#,0 تومان")
+                                                </del>
+                                            }
+                                            else
+                                            {
+                                                @product.ProductPrice.ToString("#,0 تومان")
+
+                                            }
+                                         
+                                        </h6>
+                                        <ul class="list-unstyled text-warning mb-0">
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--end col-->
+                    } 
+                        <!-- PAGINATION START -->
+                        <div class="col-12 mt-4 pt-2">
+
+                        @Html.PagedListPager(Model , page =>Url.Action("ShowProducts","Product", new { currentpage=page}) )
+
+                        </div><!--end col-->
+                        <!-- PAGINATION END -->
+                    </div><!--end row-->
+                </div><!--end col-->
+            </div><!--end row-->
+        </div><!--end container-->
+    </section><!--end section-->
+    <!-- End Products -->

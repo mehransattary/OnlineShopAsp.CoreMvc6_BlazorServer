@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@(await Component.InvokeAsync("SliderComponent"))
+@(await Component.InvokeAsync("FeaturesComponent"))
+<section class="section">
+    @(await Component.InvokeAsync("CategoriesComponent"))
+    @(await Component.InvokeAsync("LastProductsComponent"))
+</section>

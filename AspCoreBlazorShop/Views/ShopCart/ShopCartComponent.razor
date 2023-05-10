@@ -1,0 +1,217 @@
+﻿@using Microsoft.EntityFrameworkCore;
+@using Newtonsoft.Json;
+@using NuGet.Protocol;
+@inject IJSRuntime JSRuntime;
+@inject Data.Context.AppDbContext context;
+
+<!-- Hero Start -->
+<section class="bg-half bg-light d-table w-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="page-next-level">
+                    <h4 class="title"> سبد خرید </h4>
+                    <div class="page-next">
+                        <nav aria-label="breadcrumb" class="d-inline-block">
+                            <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                <li class="breadcrumb-item"><a href="/">خانه </a></li>
+                                <li class="breadcrumb-item active" aria-current="page">سبد خرید </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div> <!--end container-->
+</section><!--end section-->
+
+
+
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive bg-white shadow">
+                    <table class="table table-center table-padding mb-0">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom py-3" style="min-width:20px "></th>
+                                <th class="border-bottom py-3" style="min-width: 300px;">محصول </th>
+                                <th class="border-bottom text-center py-3" style="min-width: 160px;">قیمت </th>
+                                <th class="border-bottom text-center py-3" style="min-width: 160px;">تعداد </th>
+                                <th class="border-bottom text-center py-3" style="min-width: 160px;">مجموع </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                                 @foreach (var item in carts)
+                            {
+
+                                <tr class="shop-list">
+                                    <td class="h6"><a @onclick="()=> DeleteCart(item.ProductId)" style="cursor:pointer" class="text-danger">X</a></td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="/Product/@item.ProductEnglishName">
+                                                <img src="@item.ProductImage" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;" alt="@item.ProductName">
+                                            </a>
+                                            <h6 class="mb-0 ms-3">@item.ProductName </h6>
+
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        @item.ProductPrice.ToString("#,0  تومان")
+                                    </td>
+                                    <td class="text-center qty-icons">
+                                        <button class="btn btn-icon btn-soft-primary minus" @onclick="()=>UpdateShopCart(item.ProductId,(item.Count>1?--item.Count:1) )">-</button>
+                                        <input min="1" name="quantity" value="@item.Count" type="number" class="btn btn-icon btn-soft-primary qty-btn quantity">
+                                        <button class="btn btn-icon btn-soft-primary plus" @onclick="()=>UpdateShopCart(item.ProductId,(item.Count>0?++item.Count:1) )">+</button>
+                                    </td>
+                                    <td class="text-center fw-bold">
+                                        @item.ProductSumPrice.ToString("#,0  تومان")
+                                    </td>
+
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+        <div class="row">
+            <div class="col-lg-8 col-md-6 mt-4 pt-2">
+                <a href ="/" class="btn btn-primary">خرید بیشتر </a>
+                <a href="/ShopCarts" class="btn btn-soft-primary ms-2">بروز رسانی سبد</a>
+            </div>
+            <div class="col-lg-4 col-md-6 ms-auto mt-4 pt-2">
+                <div class="table-responsive bg-white rounded shadow">
+                    <table class="table table-center table-padding mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="h6">مجموع </td>
+                                <td class="text-center fw-bold">
+                                    @SumAllprice.ToString("#,0 تومان")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="h6">هزینه حمل </td>
+                                <td class="text-center fw-bold">
+                                    @PostPrice.ToString("#,0 تومان")
+                                </td>
+                            </tr>
+                            <tr class="bg-light">
+                                <td class="h6">مجموع </td>
+                                <td class="text-center fw-bold">
+                                    @SumAllPriceWithPost.ToString("#,0 تومان")
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 pt-2 text-end">
+                    <a href="/ContinueShopCarts" class="btn btn-primary">ادامه به پرداخت </a>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section><!--end section-->
+<!-- End -->
+
+
+
+@code {
+
+    public List<ShopCartViewModel> carts = new List<ShopCartViewModel>();
+    public string CurrentCookie = "";
+    public double SumAllprice ;
+    public int PostPrice=0 ;
+    public double SumAllPriceWithPost;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentCookie = await JSRuntime.InvokeAsync<string>("getCookie", "ShopCartCookies");
+
+        if (context.Posts.FirstOrDefault()!=null)
+        {
+            var post=   await context.Posts.FirstOrDefaultAsync();
+            PostPrice = post.PostPrice;
+        }
+        await ShowShopCart();
+
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+    }
+
+    public async Task ShowShopCart()
+    {
+        if (CurrentCookie!="")
+        {
+            CurrentCookie = await JSRuntime.InvokeAsync<string>("getCookie", "ShopCartCookies");
+            string json = System.Web.HttpUtility.UrlDecode(CurrentCookie);
+            carts = JsonConvert.DeserializeObject<List<ShopCartViewModel>>(json);
+            List<ShopCartViewModel> _carts = new List<ShopCartViewModel>();
+            foreach (var item in carts)
+            {
+                var product = await context.Products.FirstOrDefaultAsync(x => x.Id == item.ProductId);
+
+                item.ProductName = product.ProductName;
+                item.ProductEnglishName = product.ProductEnglishName;
+                item.ProductPrice = (product.ProductPriceOffer != 0 ? product.ProductPriceOffer : product.ProductPrice);
+                item.ProductSumPrice = item.ProductPrice * item.Count;
+                item.ProductImage = product.ProductImageSmall;
+                _carts.Add(item);
+            }
+            SumAllprice = _carts.Sum(x => x.ProductSumPrice);
+            SumAllPriceWithPost = SumAllprice + PostPrice;
+
+            carts.Clear();
+            carts = _carts;
+        }
+    }
+
+    public async Task UpdateShopCart(int productId,int count)
+    {
+
+        if (count>0)
+        {
+            if (CurrentCookie != null)
+            {
+                if (carts.Count() != 0)
+                {
+                    //var cartItem = carts.FirstOrDefault(x => x.ProductId == productId);
+                    //cartItem.Count = count;
+
+                    //foreach (var item in carts)
+                    //{
+                    //    if (item.ProductId == productId)
+                    //    {
+                    //        carts.Remove(item);
+                    //        carts.Add(cartItem);
+                    //    }
+                    //}
+                    await JSRuntime.InvokeVoidAsync("deleteCookie", "ShopCartCookies");
+                    string json = System.Web.HttpUtility.UrlEncode(carts.ToJson());
+                    await JSRuntime.InvokeVoidAsync("addCookie", "ShopCartCookies", json);
+                    await ShowShopCart();
+
+                }
+            }
+        }
+
+    }
+    public async Task DeleteCart(int productId)
+    {
+        if (productId != 0 && carts.Count()!=0)
+        {   
+            carts.Remove(carts.FirstOrDefault(x => x.ProductId == productId));        
+            await JSRuntime.InvokeVoidAsync("deleteCookie", "ShopCartCookies");
+            await JSRuntime.InvokeVoidAsync("addCookie", "ShopCartCookies", carts.ToJson());
+            await ShowShopCart();          
+        }
+    }
+}

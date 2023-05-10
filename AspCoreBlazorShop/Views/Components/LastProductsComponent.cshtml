@@ -1,0 +1,46 @@
+﻿   @model IEnumerable<Product>
+     <!-- Start Recent -->
+<div class="container mt-100 mt-60">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="mb-0">محصولات اخیر </h5>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                <div class="card shop-list border-0 position-relative">
+                
+                    <div class="shop-image position-relative overflow-hidden rounded shadow">
+                        <a href="/Product/@product.ProductEnglishName">
+                            <img src="@product.ProductImageSmall" class="img-fluid" alt="@product.ProductName">
+                            
+                        </a>
+                        <a href="/Product/@product.ProductEnglishName" class="overlay-work">
+                            <img src="@product.ProductImageSmall" class="img-fluid" alt="">
+                        </a>
+                  
+                    </div>
+                    <div class="card-body content pt-4 p-2">
+                        <a href="/Product/@product.ProductEnglishName" class="text-dark product-name h6">@product.ProductName </a>
+                        <div class="d-flex justify-content-between mt-1">
+                            <h6 class="text-muted small fst-italic mb-0 mt-1">
+                                @product.ProductPriceOffer.ToString("#,0 تومان")
+                                <del class="text-danger ms-2">
+                                    @product.ProductPrice.ToString("#,0 تومان")                                    
+                                </del>                                 
+                            </h6>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end col-->
+        }
+
+    </div><!--end row-->
+</div><!--end container-->
+<!-- End Recent -->

@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+    .pagination li {
+        border: 1px solid;
+        border-radius: 50%;
+        text-align: center;
+        background-image: linear-gradient(to top,#2f55d4,#ffffff);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 39px;
+        height: 39px;
+    }
+
+    .pagination li .active {
+        border: 1px solid;
+        border-radius: 50%;
+        text-align: center;
+        background-image: linear-gradient(to top,#000,#dbfde3);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 39px;
+        height: 39px;
+    }

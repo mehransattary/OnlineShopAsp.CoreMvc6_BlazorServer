@@ -1,0 +1,85 @@
+﻿@model IEnumerable<FactorDetails>
+@using Common;
+@{
+    ViewData["Title"] = "  جزئیات فاکتور" + ViewBag.FactorNumber;
+    int counter = 1;
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+
+        
+            <h4 class="header-title m-t-0 m-b-30">
+                @ViewData["Title"]
+            </h4>
+
+
+
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                               محصول
+                            </th>
+                            <th>
+                             قیمت
+                            </th>
+                            <th>
+                                تعداد
+                            </th>
+                            <th>
+                                قیمت کل
+                            </th>
+                            
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@counter</th>
+                                <td>
+                                    @item.FactorDetailsNameProduct
+                                </td>
+                                <td>
+                                    @item.FactorDetailsPriceProduct
+                                </td>                                
+
+                                <td>
+                                    @item.FactorDetailsCountProduct
+                                </td>
+                                <td>
+                                    @item.FactorDetailsSumPriceProduct.ToString("#,0 تومان")
+                                </td>
+                                <td>
+                                    <a asp-action="Print" asp-route-id="@item.Id" class="btn btn-warning btn-bordred waves-effect w-md waves-light m-b-5 ">
+                                       پرینت
+                                    </a>
+                                </td>
+                            </tr>
+
+                            counter++;
+
+                        }
+
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div><!-- end col -->
+
+</div>
+<!-- end row -->

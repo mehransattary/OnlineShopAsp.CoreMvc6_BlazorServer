@@ -1,0 +1,73 @@
+﻿@model IEnumerable<FactorMain>
+@{
+    ViewData["Title"] = "سفارشات کاربر";
+    string activemessage = "ShowFactors";
+    int counter = 1;
+}
+
+<partial name="_TopBarUserPanel" model="@ViewData["Title"]" />
+
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Hero End -->
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <partial name="_RightBarUserPanel" model="activemessage" />
+
+            <div class="col-md-8 col-12 mt-4 pt-2">
+                <div class="col mt-4 pt-2" id="tables">
+                    <div class="component-wrapper rounded shadow">
+                        <div class="p-4 border-bottom">
+                            <h4 class="title mb-0"> سفارشات </h4>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="table-responsive bg-white shadow rounded">
+                                <table class="table mb-0 table-center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="border-bottom">#</th>
+                                            <th scope="col" class="border-bottom"> شماره فاکتور</th>
+                                            <th scope="col" class="border-bottom">شماره پرداخت</th>
+                                            <th scope="col" class="border-bottom">تاریخ</th>
+                                            <th scope="col" class="border-bottom">جمع کل</th>
+                                            <th scope="col" class="border-bottom"> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <th scope="row">@counter</th>
+                                                <td>@item.FactorMainNumber</td>
+                                                <td>@item.FactorMainPayNumber</td>
+                                                <td>@item.FactorMainDate.ToShamsi()</td>
+                                                <td>@item.FactorMainSumPriceAll.ToString("#,0 تومان")</td>
+                                                <td>
+                                                    <a href="/PanelUser/ShowDetailFactor?factorId=@item.Id" class="btn btn-primary me-2 mt-2">
+                                                     جزئیات
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            counter++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section><!--end section-->
+<!-- End -->

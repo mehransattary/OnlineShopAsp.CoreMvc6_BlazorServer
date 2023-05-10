@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FactorDetails>
+@{
+    ViewData["Title"] = "جزئیات سفارش" + @ViewBag.FactorNumber;
+    string activemessage = "ShowFactors";
+    int counter = 1;
+}
+<partial name="_TopBarUserPanel" model="@ViewData["Title"]" />
+
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Hero End -->
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <partial name="_RightBarUserPanel" model="activemessage" />
+
+            <div class="col-md-8 col-12 mt-4 pt-2">
+                <div class="col mt-4 pt-2" id="tables">
+                    <div class="component-wrapper rounded shadow">
+                        <div class="p-4 border-bottom">
+                            <h4 class="title mb-0"> جزئیات سفارش @ViewBag.FactorNumber </h4>
+                        </div>
+
+                        <div class="p-4">
+                            <div class="table-responsive bg-white shadow rounded">
+                                <table class="table mb-0 table-center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="border-bottom">#</th>
+                                            <th scope="col" class="border-bottom"> نام </th>
+                                            <th scope="col" class="border-bottom">قیمت </th>
+                                            <th scope="col" class="border-bottom">تعداد</th>
+                                            <th scope="col" class="border-bottom">جمع </th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model!=null)
+                                        {
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <th scope="row">@counter</th>
+                                                    <td>@item.FactorDetailsNameProduct</td>
+                                                    <td>@item.FactorDetailsPriceProduct.ToString("#,0 تومان")</td>
+                                                    <td>@item.FactorDetailsCountProduct</td>
+                                                    <td>@item.FactorDetailsSumPriceProduct.ToString("#,0 تومان")</td>
+
+
+                                                </tr>
+                                                counter++;
+                                            }
+                                        }
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section><!--end section-->
+<!-- End -->

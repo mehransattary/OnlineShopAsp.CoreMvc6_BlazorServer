@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Category>
+@{
+    Setting setting = null;
+    List<Social> Soicals = new List<Social>();
+}
+@if (ViewBag.setting != null)
+{
+    setting = ViewBag.setting as Setting;
+}
+@if (ViewBag.socials!=null)
+{
+    Soicals = ViewBag.socials as List<Social>;
+}
+
+<!-- Footer Start -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+
+                @if (setting != null)
+                {
+                    <a href="/" class="logo-footer">
+                        <img src="@setting.SettingLogo" height="150" alt="@setting.SettingSiteName">
+                    </a>
+                }
+                <ul class="list-unstyled social-icon foot-social-icon mb-0 mt-4">
+                    @if (Soicals != null && Soicals.Count()!=0)
+                    {
+                        @foreach (var social in Soicals)
+                        {
+                     
+
+                            <li class="list-inline-item">
+                                <a href="@social.SocialLink" class="">
+                                    @social.SocialEnum
+
+                                </a>
+                            </li>
+                        }
+                    }
+                  
+                   
+
+
+
+                </ul><!--end icon-->
+            </div><!--end col-->
+
+            <div class="col-lg-4 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                <h5 class="text-light footer-head">دسته بندی ها </h5>
+                <ul class="list-unstyled footer-list mt-4">
+                    @foreach (var category in Model)
+                    {
+                        <li>
+                            <a href="/ShowProductsCategory/@category.CategoryEnglishName" class="text-foot">
+                                <i class="uil uil-angle-left-b me-1"></i>
+                                @category.CategoryName
+                            </a>
+                        </li>
+
+
+                    }
+                </ul>
+            </div><!--end col-->
+
+            <div class="col-lg-4 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                <h5 class="text-light footer-head">اطلاعات </h5>
+                <ul class="list-unstyled footer-list mt-4">
+
+                    @if (setting != null)
+                    {
+
+
+                        <li>
+                            <a href="#" class="text-foot" rel="nofollow">
+                                <i class="uil uil-angle-left-b me-1"></i>
+                                آدرس : @setting.SettingAddress
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="text-foot" rel="nofollow">
+                                <i class="uil uil-angle-left-b me-1"></i>
+                                فروشگاه : @setting.SettingShopName
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/" class="text-foot">
+                                <i class="uil uil-angle-left-b me-1"></i>
+                                سایت : @setting.SettingSiteName
+
+                            </a>
+                        </li>
+                    }
+
+
+
+
+                </ul>
+            </div><!--end col-->
+
+
+        </div><!--end row-->
+    </div><!--end container-->
+</footer><!--end footer-->
+<footer class="footer footer-bar">
+    <div class="container text-center">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <div class="text-sm-start">
+                    <p class="mb-0">
+                        طراحی شده توسط
+                        <a href="https://mehransattary.ir">
+                            مهران ستاری
+                        </a>
+                    </p>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-sm-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</footer><!--end footer-->
+<!-- Footer End -->

@@ -1,0 +1,139 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = "ویرایش برند " + Model.BrandName;
+}
+
+<h4 class="header-title m-t-0 m-b-30">
+    @ViewData["Title"]
+</h4>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="row">
+                <a asp-action="Index" class="btn btn-primary btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    بازگشت
+                </a>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form class="form-horizontal" role="form" asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input asp-for="Id" hidden/>
+                        <input asp-for="CreateDate" hidden />
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">نام برند</label>
+                            <div class="col-md-10">
+                                <input asp-for="BrandName" class="form-control" placeholder="نام برند">
+                                <span asp-validation-for="BrandName" style="color:red"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">نام انگلیسی</label>
+                            <div class="col-md-10">
+                                <input asp-for="BrandEnglishName" class="form-control" placeholder="نام انگلیسی" required>
+                                <span asp-validation-for="BrandEnglishName" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">ترتیب </label>
+                            <div class="col-md-10">
+                                <input asp-for="BrandOrder" class="form-control" placeholder="ترتیب " min="1" value="1">
+                                <span asp-validation-for="BrandOrder" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">توضیح مختصر </label>
+                            <div class="col-md-10">
+                                <textarea asp-for="BrandShortDescription" class="form-control">
+
+                              </textarea>
+                                <span asp-validation-for="BrandShortDescription" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">توضیح  کامل </label>
+                            <div class="col-md-10">
+                                <textarea asp-for="BrandDescription" class="form-control">
+
+                              </textarea>
+                                <span asp-validation-for="BrandDescription" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary">
+                                <input asp-for="BrandIsEnableForMainPage" type="checkbox" >
+                                <label for="checkbox2">
+                                    فعال در صفحه اصلی
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> تصویر  </label>
+                            <div class="col-md-10">
+
+                                <img src="@Model.BrandImage" width="150" />
+                                <input asp-for="BrandImage" hidden />
+
+                                <input name="BrandImageFile" class="form-control" type="file">
+                                <span asp-validation-for="BrandImage" style="color:red"></span>
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">ذخیره </button>
+
+                    </form>
+                </div><!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <!--form wysiwig js-->
+    <script src="/admin/assets/plugins/tinymce/tinymce.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#BrandDescription").length > 0) {
+                tinymce.init({
+                    selector: "textarea#BrandDescription",
+                    theme: "modern",
+                    height: 300,
+                    plugins: [
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
+                    ],
+                    toolbar: "rtl insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                    ]
+                });
+            }
+        });
+    </script>
+}
+

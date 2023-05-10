@@ -1,0 +1,48 @@
+﻿ @model IEnumerable<Slider>
+@{
+    int active = 1;
+}
+ <!-- Hero Start -->
+    <section class="home-slider position-relative">
+        <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+               
+
+        @foreach (var slider in Model)
+            {
+                <div class="carousel-item  @(active==1?"active":"") " data-bs-interval="3000">
+                    <div class="bg-home slider-rtl-2 d-flex align-items-center" style="background:url('@slider.SliderImage') center center;">
+                        <div class="container">
+                            <div class="row align-items-center mt-5">
+                                <div class="col-lg-7 col-md-7">
+                                    <div class="title-heading mt-4">
+                                        <h1 class="display-4 title-white fw-bold mb-3">
+                                            @slider.SliderName
+                                        </h1>
+                                        <p class="para-desc text-muted para-dark">
+                                            @slider.SliderShortDescription
+                                        </p>
+                                        <div class="mt-4">
+                                            <a href=" @slider.SliderUrl" class="btn btn-soft-primary">اکنون بخرید </a>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div><!--end container-->
+                    </div>
+                </div>
+
+                active++;
+            }
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">قبلی </span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">بعدی </span>
+            </a>
+        </div>
+    </section><!--end section-->
+    <!-- Hero End -->

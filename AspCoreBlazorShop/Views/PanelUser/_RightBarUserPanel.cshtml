@@ -1,0 +1,38 @@
+﻿@model string
+<div class="col-md-4 mt-4 pt-2">
+    <div class="d-flex align-items-center">
+        <div class="ms-3">        
+            <h5 class="mb-0">
+                @User.Identity.Name
+            </h5>
+        </div>
+    </div>
+
+    <ul class="nav nav-pills nav-justified flex-column bg-white rounded mt-4 shadow p-3 mb-0" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link rounded @((Model=="ShowInformation")?"active":"")" id="dashboard" href="/PanelUser/ShowInformation" aria-selected="false">
+                <div class="text-start py-1 px-3">
+                    <h6 class="mb-0"><i class="uil uil-dashboard h5 align-middle me-2 mb-0"></i> اطلاعات شخصی </h6>
+                </div>
+            </a><!--end nav link-->
+        </li><!--end nav item-->
+
+        <li class="nav-item mt-2">
+            <a class="nav-link rounded @((Model=="ShowFactors")?"active":"")"  id="order-history" href="/PanelUser/ShowFactors" aria-selected="false">
+                <div class="text-start py-1 px-3">
+                    <h6 class="mb-0"><i class="uil uil-list-ul h5 align-middle me-2 mb-0"></i> سفارشات</h6>
+                </div>
+            </a><!--end nav link-->
+        </li><!--end nav item-->
+
+       
+
+        <li class="nav-item mt-2">
+            <a class="nav-link rounded" href="/Account/LogOut" aria-selected="false">
+                <div class="text-start py-1 px-3">
+                    <h6 class="mb-0"><i class="uil uil-sign-out-alt h5 align-middle me-2 mb-0"></i> خروج </h6>
+                </div>
+            </a><!--end nav link-->
+        </li><!--end nav item-->
+    </ul><!--end nav pills-->
+</div><!--end col-->

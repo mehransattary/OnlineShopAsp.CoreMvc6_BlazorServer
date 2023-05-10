@@ -1,0 +1,226 @@
+﻿@model Product
+@{
+    ViewData["Title"] = @Model.ProductName;
+}
+
+<!-- Hero Start -->
+<section class="bg-half bg-light d-table w-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="page-next-level">
+                    <h1 class="title h4">
+                        @Model.ProductName
+                    </h1>
+                    <div class="page-next">
+                        <nav aria-label="breadcrumb" class="d-inline-block">
+                            <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                <li class="breadcrumb-item"><a href="/">خانه </a></li>
+                                <li class="breadcrumb-item active" aria-current="page">جزئیات محصول
+                                       @Model.ProductName
+                                    
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div> <!--end container-->
+</section><!--end section-->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Hero End -->
+
+<section class="section pb-0">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="tiny-single-item">
+                    <div class="tiny-slide"><img src="@Model.ProductImageMain" class="img-fluid rounded" alt="@Model.ProductName"></div>
+
+                </div>
+            </div><!--end col-->
+
+            <div class="col-md-7 mt-4 mt-sm-0 pt-2 pt-sm-0">
+
+                <form asp-action="AddShopCart" asp-controller="ShopCart" method="post">
+                    <div class="section-title ms-md-4">
+                        <h4 class="title">     @Model.ProductName</h4>
+                        @if (Model.ProductPriceOffer != 0)
+                        {
+                            <h5 class="text-muted">
+                                @Model.ProductPriceOffer.ToString("#,0 تومان")
+                                <del class="text-danger ms-2">@Model.ProductPrice.ToString("#,0 تومان")</del>
+
+                            </h5>
+                        }
+                        else
+                        {
+                            <h5 class="text-muted">
+                                @Model.ProductPrice.ToString("#,0 تومان")
+
+                            </h5>
+                        }
+
+                        <ul class="list-unstyled text-warning h5 mb-0">
+                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        </ul>
+
+                        <h5 class="mt-4 py-2">بررسی:</h5>
+                        <p class="text-muted">
+                            @Model.ProductShortDescription
+                        </p>
+
+          
+
+                        @*               <div class="row mt-4 pt-2">
+                        <div class="col-lg-6 col-12">
+                        <div class="d-flex align-items-center">
+                        <h6 class="mb-0">سایز شما: </h6>
+                        <ul class="list-unstyled mb-0 ms-3">
+                        <li class="list-inline-item"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">S</a></li>
+                        <li class="list-inline-item ms-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">M</a></li>
+                        <li class="list-inline-item ms-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">L</a></li>
+                        <li class="list-inline-item ms-1"><a href="javascript:void(0)" class="btn btn-icon btn-soft-primary">XL</a></li>
+                        </ul>
+                        </div>
+                        </div><!--end col-->*@
+
+                        <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                            <div class="d-flex shop-list align-items-center">
+                                <h6 class="mb-0">تعداد: </h6>
+                                <div class="qty-icons ms-3">
+                                    <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-icon btn-soft-primary minus">-</a>
+                                    <input min="1" name="Count" value="1" type="number" class="btn btn-icon btn-soft-primary qty-btn quantity">
+                                    <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-icon btn-soft-primary plus">+</a>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+
+                    <div class="mt-4 pt-2">
+                        <input name="ProductId"value="@Model.Id" hidden/>
+                        <button type="submit" class="btn btn-primary">افزودن به سبد</button>
+                    </div>             
+
+                </form>
+
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+    </div><!--end container-->
+
+    <div class="container mt-100 mt-60">
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-pills shadow flex-column flex-sm-row d-md-inline-flex mb-0 p-1 bg-white rounded position-relative overflow-hidden" id="pills-tab" role="tablist">
+                    <li class="nav-item m-1">
+                        <a class="nav-link py-2 px-5 active rounded" id="description-data" data-bs-toggle="pill" href="#description" role="tab" aria-controls="description" aria-selected="false">
+                            <div class="text-center">
+                                <h6 class="mb-0">توضیحات </h6>
+                            </div>
+                        </a><!--end nav link-->
+                    </li><!--end nav item-->
+
+
+                </ul>
+
+                <div class="tab-content mt-5" id="pills-tabContent">
+                    <div class="card border-0 tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-data">
+                        <p class="text-muted mb-0">
+                            @Html.Raw(Model.ProductDescription)
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div><!--end container-->
+
+
+
+
+
+
+
+    <div class="container mt-100 mt-60">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-0">محصولات مرتبط</h5>
+            </div><!--end col-->
+
+            <div class="col-12 mt-4">
+                <div class="tiny-four-item">
+                    @foreach (var item in ViewData["relatedproducts"] as List<Product>)
+                    {
+                        <div class="tiny-slide">
+                            <div class="card shop-list border-0 position-relative m-2">
+                            
+                                <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                    <a asp-action="ShowProduct" asp-controller="Product" asp-route-englishNameProduct="@item.ProductEnglishName">
+                                        <img src="@item.ProductImageMain" class="img-fluid" alt="@item.ProductName ">
+                                    </a>
+                                    <a asp-action="ShowProduct" asp-controller="Product" asp-route-englishNameProduct="@item.ProductEnglishName" class="overlay-work">
+                                        <img src="@item.ProductImageMain" class="img-fluid" alt="@item.ProductName ">
+                                    </a>
+
+                                </div>
+                                <div class="card-body content pt-4 p-2">
+                                    <a asp-action="ShowProduct" asp-controller="Product" asp-route-englishNameProduct="@item.ProductEnglishName" class="text-dark product-name h6">@item.ProductName  </a>
+                                    <div class="d-flex justify-content-between mt-1">
+
+                                        @if (item.ProductPriceOffer != 0)
+                                        {
+
+                                            <h6 class="text-muted small fst-italic mb-0 mt-1">
+                                                @item.ProductPriceOffer.ToString("#,0 تومان")
+                                                <del class="text-danger ms-2">
+                                                    @item.ProductPrice.ToString("#,0 تومان")
+                                                </del>
+
+                                            </h6>
+                                        }
+                                        else
+                                        {
+
+
+                                            <h6 class="text-muted small fst-italic mb-0 mt-1">
+                                                @item.ProductPrice.ToString("#,0 تومان")
+
+                                            </h6>
+                                        }
+
+
+
+                                        <ul class="list-unstyled text-warning mb-0">
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+
+</section><!--end section-->

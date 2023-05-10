@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<FactorDetails>
+@using Common;
+@{
+    var Factor = ViewBag.Factor as FactorMain;
+    ViewData["Title"] = "  جزئیات فاکتور" + Factor.FactorMainNumber;
+    int counter = 1;
+}
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!-- <div class="panel-heading">
+                    <h4>Invoice</h4>
+                </div> -->
+                <div class="panel-body">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <h3 class="logo">@Factor.FactorMainSellerFullName</h3>
+                        </div>
+                        <div class="pull-right">
+                            <h4>
+                                شماره سفارش # <br>
+                                <strong>@Factor.FactorMainNumber</strong>
+                            </h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="pull-left m-t-30">
+                                <address>
+                                    <strong>@Factor.FactorMainBuyerMobile</strong><br>
+                                    @Factor.FactorMainBuyerAddress<br>
+                                    @Factor.FactorMainBuyerCodePosti<br>
+                                    <abbr title="Phone">شماره تماس:</abbr>  @Factor.FactorMainBuyerMobile
+                                </address>
+                            </div>
+                            <div class="pull-right m-t-30">
+                                <p><strong>تاریخ خرید: </strong> @Factor.FactorMainDate.ToShamsi()</p>
+                                <p class="m-t-10"><strong>وضعیت: </strong> <span class="label label-pink">@(@Factor.FactorMainIsPay?"پرداخت شده":"پرداخت نشده")</span></p>
+                                <p class="m-t-10"><strong>شماره پرداخت: </strong> @Factor.FactorMainPayNumber</p>
+                            </div>
+                        </div><!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                    <div class="m-h-50"></div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table m-t-30">
+                                    <thead>
+                                        <tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>
+                                                محصول
+                                            </th>
+                                            <th>
+                                                قیمت
+                                            </th>
+                                            <th>
+                                                تعداد
+                                            </th>
+                                            <th>
+                                                قیمت کل
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     
+                                        @foreach (var item in Model)
+                                        {
+                                       
+                                            <tr>
+                                                <th scope="row">@counter</th>
+                                                <td>
+                                                    @item.FactorDetailsNameProduct
+                                                </td>
+                                                <td>
+                                                    @item.FactorDetailsPriceProduct
+                                                </td>
+
+                                                <td>
+                                                    @item.FactorDetailsCountProduct
+                                                </td>
+                                                <td>
+                                                    @item.FactorDetailsSumPriceProduct.ToString("#,0 تومان")
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Print" asp-route-id="@item.Id" class="btn btn-warning btn-bordred waves-effect w-md waves-light m-b-5 ">
+                                                        پرینت
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                            counter++;
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+ 
+                        <div class="col-md-3 col-sm-6 col-xs-6 col-md-offset-3">                
+                   
+                            <hr>
+                            <h3 class="text-right">مقدار قابل پرداخت  @Factor.FactorMainSumPriceAll.ToString("#,0 تومان")</h3>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="hidden-print">
+                        <div class="pull-right">
+                            <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- end row -->
+
+
+</div> <!-- container -->

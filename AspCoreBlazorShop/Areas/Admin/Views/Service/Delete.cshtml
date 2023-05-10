@@ -1,0 +1,33 @@
+﻿@model Service
+
+@{
+    ViewData["Title"] = "حذف سرویس " + @Model.ServiceName;
+}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="card-box">
+
+
+            <h4 class="header-title m-b-30">
+                آیا از حذف
+                @Model.ServiceName
+                مطمعن هستید؟
+                </h4>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="DeleteConfirm">
+                        <input hidden asp-for="Id"/>
+
+                        <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">حذف </button>
+                        <a  asp-action="Index" class="btn btn-sm btn-success waves-effect waves-light">لفو </a>
+
+                    </form>
+             
+                </div>
+            </div>
+        </div>
+    </div><!-- end col -->
+
+
+</div>

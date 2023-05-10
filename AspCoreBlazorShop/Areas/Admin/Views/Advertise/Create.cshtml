@@ -1,0 +1,65 @@
+﻿@model Advertise
+@{
+    ViewData["Title"] = "افزودن تبلیغات جدید";
+}
+
+<h4 class="header-title m-t-0 m-b-30">
+    @ViewData["Title"]
+</h4>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="row">
+                <a asp-action="Index" class="btn btn-primary btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    بازگشت
+                </a>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <form class="form-horizontal" role="form" asp-action="Create" method="post" enctype="multipart/form-data">
+              
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="example-email">نام تبلیغ</label>
+                            <div class="col-md-10">
+                                <input asp-for="AdvertiseName" class="form-control" placeholder="نام تبلیغ">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"> لینک </label>
+                            <div class="col-md-10">
+                                <input asp-for="AdvertiseUrl" class="form-control" placeholder="لینک">
+                                <span asp-validation-for="AdvertiseUrl" style="color:red"></span>
+
+                            </div>
+                        </div>
+
+                
+
+                             <div class="form-group">
+                            <label class="col-md-2 control-label"> تصویر  </label>
+                            <div class="col-md-10">
+                                <input name="AdvertiseImageFile" class="form-control" type="file">
+                                <input asp-for="AdvertiseImage" hidden value="-">
+
+                                <span asp-validation-for="AdvertiseImage" style="color:red"></span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <button type="submit" class="btn btn-sm btn-success waves-effect waves-light">ذخیره </button>
+
+                    </form>
+                </div><!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+}
+
+

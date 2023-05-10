@@ -1,0 +1,56 @@
+﻿@model AbouteUs
+@{
+    ViewData["Title"] = "درباره ما";
+
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+
+            @if(Model==null)
+            {
+                <a asp-action="Create" class="btn btn-success btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    جدید
+                </a>
+            }
+        
+            @if (Model != null)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    ویرایش
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                    حذف
+                </a>
+
+            }
+            <h4 class="header-title m-t-0 m-b-30">
+                @ViewData["Title"]
+            </h4>
+
+        </div>
+    </div><!-- end col -->
+
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        @if (Model != null)
+        {
+
+
+            <div>
+                @Html.Raw(Model.AbouteText)
+            </div>
+        }
+        else
+        {
+            <span>
+                محتوایی وجود ندارد.
+            </span>
+        }
+    </div>
+</div>

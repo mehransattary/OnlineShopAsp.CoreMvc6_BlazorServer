@@ -1,0 +1,22 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        @ViewData["Title"]
+    </title>
+    <partial name="_Meta" />
+    <partial name="_Style" />
+</head>
+
+<body>
+    <partial name="_Loader" />
+    @(await Component.InvokeAsync("MenuComponent"))
+     @RenderBody()
+    @(await Component.InvokeAsync("FooterComponent"))
+    <partial name="_BackToTop" />
+    <partial name="_Script" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

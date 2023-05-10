@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Category>
+<!-- Start Categories -->
+<div class="container mt-100 mt-60">
+    <div class="row">
+        <div class="col-12">
+            <h5 class="mb-0">دسته بندی ها </h5>
+        </div><!--end col-->
+    </div><!--end row-->
+    <div class="row">
+        @foreach (var category in Model)
+        {
+            <div class="col-lg-2 col-md-4 col-6 mt-4 pt-2">
+                <div class="card explore-feature border-0 rounded text-center bg-white">
+                    <div class="card-body">
+                        <img src="@category.CategoryImage" class="avatar avatar-small rounded-circle shadow-md" alt="@category.CategoryName">
+                        <div class="content mt-3">
+                            <h6 class="mb-0">
+                                <a href="/ShowProductsCategory/@category.CategoryEnglishName" class="title text-dark" title="@category.CategoryName">
+                                    @category.CategoryName
+                                </a>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end col-->
+        }
+
+
+    </div><!--end row-->
+</div><!--end container-->
+<!-- Start Categories -->

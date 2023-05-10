@@ -1,0 +1,105 @@
+﻿@model IPagedList<FactorMain>
+@using Common;
+@{
+    ViewData["Title"] = " فاکتور ها";
+    int counter = 1;
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+
+            <a asp-action="Create" class="btn btn-success btn-bordred waves-effect w-md waves-light m-b-5 " style="    float: left;">
+                جدید
+            </a>
+            <h4 class="header-title m-t-0 m-b-30">
+                @ViewData["Title"]
+            </h4>
+
+
+
+            <div class="table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                شماره فاکتور
+                            </th>
+                            <th>
+                                شماره پرداخت
+                            </th>
+                            <th>
+                                وضعیت
+                            </th>
+                            <th>
+                                کاربر
+                            </th>
+                            <th>
+                                تاریخ
+                            </th>
+                            <th>
+                                عملیات
+                            </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@counter</th>
+                                <td>
+                                    @item.FactorMainNumber
+                                </td>
+                                <td>
+                                    @item.FactorMainPayNumber
+                                </td>
+                                <td>
+                                    @if (item.FactorMainIsPay)
+                                    {
+                                        <span class="label label-success">
+                                            پرداخت شده
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="label label-danger">
+                                            پرداخت نشده
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @item.FactorMainBuyerMobile
+                                </td>
+                                <td>
+                                    @item.FactorMainDate.ToShamsi()
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning btn-bordred waves-effect w-md waves-light m-b-5 ">
+                                        جزئیات فاکتور
+                                    </a>
+                               
+                                </td>
+                            </tr>
+
+                            counter++;
+
+                        }
+
+
+                    </tbody>
+                </table>
+
+                @Html.PagedListPager(Model , page =>Url.Action("Index","Factors", new { currentpage=page}) )
+
+
+            </div>
+        </div>
+    </div><!-- end col -->
+
+</div>
+<!-- end row -->
